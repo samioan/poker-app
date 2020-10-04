@@ -1,0 +1,26 @@
+{
+  "name": "poker-app",
+  "version": "0.1.0",
+  "description": "poker app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samioan/Poker-Game"
+  },
+  "keywords": [
+    "poker"
+  ],
+  "author": "samioan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samioan/Poker-Game/issues"
+  },
+  "homepage": "https://github.com/samioan/Poker-Game#readme",
+  "dependencies": {
+    "shuffle-array": "^1.0.1"
+  }
+}
