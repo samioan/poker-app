@@ -349,6 +349,10 @@ function handCheck (hand, index, value, numberOfOccurences) {
 //console.log("HIGH CARD");
 //console.log(highCard(myHand4, 0));
 //console.log(highCardText(myHand4, 0));
-console.log("------------------------------------------------------");
-console.log(handCheck(myHand1, 0, 0, 0));
-console.log("------------------------------------------------------");
+// console.log("------------------------------------------------------");
+// console.log(handCheck(myHand1, 0, 0, 0));
+// console.log("------------------------------------------------------");
+
+module.exports = {
+  handCheck,
+};
