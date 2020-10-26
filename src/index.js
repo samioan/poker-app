@@ -242,31 +242,88 @@ function highCard (hand, index) {
     const b = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
     return Math.max(...b);
 } 
+
+//Displays in text the highest card
+function highCardText (hand,index) {
+   
+    const b = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
+    function indexOfMax(arr) {
+        if (arr.length === 0) {
+            return -1;
+        }
+    
+        var max = arr[0];
+        var maxIndex = 0;
+    
+        for (var i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                maxIndex = i;
+                max = arr[i];
+            }
+        }
+    
+        return maxIndex;
+    }
+    
+    return (
+        numberCalculation(hand,indexOfMax(b)) + colorCalculation (hand, indexOfMax(b))
+    )
+}
 //Determines the player's current hand
 function handCheck (hand, index, value, numberOfOccurences) {
 
     const x = true;
     switch(x) {
         case (royalFlush (hand, index, value)):
-            return "Royal Flush";
+            return {
+                strength: "Royal Flush",
+                highestCard: highCardText (hand,index)
+            };
         case (straightFlush (hand, index, value)):
-            return "Straight Flush";
+            return {
+                strength: "Straight Flush",
+                highestCard: highCardText (hand,index)
+            }
         case (fourOfAKind(hand, index, value, numberOfOccurences)):
-            return "Four of a kind";
+            return {
+                strength: "Four of a kind",
+                highestCard: highCardText (hand,index)
+            }
         case (fullHouse(hand, index, value, numberOfOccurences)):
-            return "Full House";
+            return {
+                strength: "Full House",
+                highestCard: highCardText (hand,index)
+            }
         case (flush(hand, index, value)):
-            return "Flush";
+            return {
+                strength: "Flush",
+                highestCard: highCardText (hand,index)
+            }
         case (straight(hand, index, value)):
-            return "Straight";
+            return {
+                strength: "Straight",
+                highestCard: highCardText (hand,index)
+            }
         case (threeOfAKind (hand, index, value, numberOfOccurences)):
-            return "Three of a kind";
+            return {
+                strength: "Three of a kind",
+                highestCard: highCardText (hand,index)
+            }
         case (twoPair (hand, index, value, numberOfOccurences)):
-            return "Two Pairs";
+            return {
+                strength: "Two Pairs",
+                highestCard: highCardText (hand,index)
+            }
         case (pair (hand, index, value, numberOfOccurences)):
-            return "One Pair";
+            return {
+                strength: "One Pair",
+                highestCard: highCardText (hand,index)
+            }
         default: 
-            return highCard (hand, index);
+            return {
+                strength: "High Card",
+                highestCard: highCardText (hand,index)
+            }
     }
 
 }
@@ -290,6 +347,8 @@ function handCheck (hand, index, value, numberOfOccurences) {
 //console.log("PAIR");
 //console.log(pair(myHand9, 0, 0, 0));
 //console.log("HIGH CARD");
-//console.log(highCard(myHand2, 0));
-console.log("YOUR HAND IS");
-console.log(handCheck(myHand5, 0, 0, 0));
+//console.log(highCard(myHand4, 0));
+//console.log(highCardText(myHand4, 0));
+console.log("------------------------------------------------------");
+console.log(handCheck(myHand1, 0, 0, 0));
+console.log("------------------------------------------------------");
