@@ -8,7 +8,7 @@ const HAND_TYPE = {
   FLUSH: 6,
   STRAIGHT: 5,
   THREE_OF_A_KIND: 4,
-  TWO_PAIRS: 3,
+  TWO_PAIR: 3,
   ONE_PAIR: 2,
   HIGH_CARD: 1,
 };
@@ -67,6 +67,90 @@ describe("handCheck", () => {
     expect(result).toEqual({
       strength: HAND_TYPE.FULL_HOUSE,
       highestCard: 14,
+    });
+  });
+
+  it('should return "Flush" related result and 8 as highCard', () => {
+    // GIVEN
+    const hand = ["H08", "H03", "H05", "H07", "H04"];
+
+    // WHEN
+    const result = handCheck(hand);
+
+    // THEN
+    expect(result).toEqual({
+      strength: HAND_TYPE.FLUSH,
+      highestCard: 8,
+    });
+  });
+
+  it('should return "Straight" related result and 8 as highCard', () => {
+    // GIVEN
+    const hand = ["H08", "H06", "H05", "H07", "C04"];
+
+    // WHEN
+    const result = handCheck(hand);
+
+    // THEN
+    expect(result).toEqual({
+      strength: HAND_TYPE.STRAIGHT,
+      highestCard: 8,
+    });
+  });
+
+  it('should return "Three of a kind" related result and 10 as highCard', () => {
+    // GIVEN
+    const hand = ["H10", "H06", "D10", "C10", "H04"];
+
+    // WHEN
+    const result = handCheck(hand);
+
+    // THEN
+    expect(result).toEqual({
+      strength: HAND_TYPE.THREE_OF_A_KIND,
+      highestCard: 10,
+    });
+  });
+
+  it('should return "Two Pair" related result and 10 as highCard', () => {
+    // GIVEN
+    const hand = ["H10", "H06", "D10", "C06", "H04"];
+
+    // WHEN
+    const result = handCheck(hand);
+
+    // THEN
+    expect(result).toEqual({
+      strength: HAND_TYPE.TWO_PAIR,
+      highestCard: 10,
+    });
+  });
+
+  it('should return "One Pair" related result and 10 as highCard', () => {
+    // GIVEN
+    const hand = ["H10", "H06", "D10", "C05", "H04"];
+
+    // WHEN
+    const result = handCheck(hand);
+
+    // THEN
+    expect(result).toEqual({
+      strength: HAND_TYPE.ONE_PAIR,
+      highestCard: 10,
+    });
+  });
+
+  it('should return "High Card" related result and 13 as highCard', () => {
+    // GIVEN
+    const hand = ["H10", "C13", "D09", "C05", "H04"];
+
+    // WHEN
+    const result = handCheck(hand);
+
+    // THEN
+    expect(result).toEqual({
+      strength: HAND_TYPE.HIGH_CARD,
+      highestCard: 13,
     });
   });
 });
