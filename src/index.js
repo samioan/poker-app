@@ -1,5 +1,6 @@
 //Poker Game
 
+// #region Now that we have tests you don't have to test your code here anymore (because it's a library and shouldn't run :D)
 //Player's Hand
 const myHand1 = ["H14","H12","H10","H13","H11"]; //has royal flush
 const myHand2 = ["H13","H11","H09","H12","H10"]; //has straight flush
@@ -11,7 +12,9 @@ const myHand7 = ["S09","D09","H09","S08","H07"]; //has three of a kind
 const myHand8 = ["S09","D09","H08","S08","C13"]; //has two pairs
 const myHand9 = ["S09","D09","H07","S08","C13"]; //has a pair
 const myHand10 = ["S14","D02","H05","C12","C03"]; //has a pair
+// #endregion Now that we have tests you don't have to test your code here anymore (because it's a library and shouldn't run :D)
 
+// TODO: Function that gives names on cards is not needed in the basic scope of the handCheck function, we may move it
 //------Define card stats------
 //Defines a card's number
 function numberCalculation (hand, index) {
@@ -47,6 +50,8 @@ function numberCalculation (hand, index) {
             return"Nothing ";
     }               
 }
+
+// TODO: Function that gives names on cards is not needed in the basic scope of the handCheck function, we may move it
 //Defines a card's color
 function colorCalculation (hand, index) {
     const x = hand[index].charAt(0);
@@ -64,10 +69,14 @@ function colorCalculation (hand, index) {
     }
 
 }
+
+// TODO: You can create a function getCardName that will use the numberCalculation, numberCalculation and return the name (all these in seperate files)
+
 //Defines a card's strength
 function cardStrength (hand, index) {
     return parseInt((hand[index].charAt(1) + hand[index].charAt(2)), 10);
 }
+
 //------Color related checks for a hand------
 //Defines if a hand has only one color
 function oneColor (hand) {
@@ -76,6 +85,7 @@ function oneColor (hand) {
         return true;
     } else return false;
 }
+
 //Check if a hand has every color
 function everyColor (hand) {
     const a = [hand[0].charAt(0), hand[1].charAt(0), hand[2].charAt(0), hand[3].charAt(0), hand[4].charAt(0)]
@@ -83,6 +93,7 @@ function everyColor (hand) {
         return true;
     } else return false;
 }
+
 //------Number related checks for a hand------
 //Check if we have five cards in sequential order
 function pairCheckFive (hand, index, value) {
@@ -91,13 +102,15 @@ function pairCheckFive (hand, index, value) {
         return true;
     } else return false;
 } 
+
 //Check for an ace related unique pair
 function pairCheckFiveAce (hand, index) {
     const b = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
     if (b.includes(14) && b.includes(2) && b.includes(3) && b.includes(4) && b.includes(5)) {
         return true;
     } else return false;
-} 
+}
+
 //Check if a hand has cards of the same number
 function cardSame (hand, index, value, numberOfOccurences) {
     const array = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
@@ -106,6 +119,7 @@ function cardSame (hand, index, value, numberOfOccurences) {
         return true;
     } else return false;
 }
+
 //------Winning hand checks------
 //Check if we have a royal flush
 function royalFlush (hand, index, value) {
@@ -116,6 +130,7 @@ function royalFlush (hand, index, value) {
         return true;
     } else return false; 
 }
+
 //Check if we have a straight flush
 function straightFlush (hand, index, value) {
     const a = oneColor(hand);
@@ -125,9 +140,8 @@ function straightFlush (hand, index, value) {
             return true;
         } else return false;
     }
-    
-    
 }
+
 //Check if we have four of a kind
 function fourOfAKind(hand, index, value, numberOfOccurences) {
 
@@ -142,6 +156,7 @@ function fourOfAKind(hand, index, value, numberOfOccurences) {
         return true;
     } else return false;
 }
+
 //Check if we have a full house
 function fullHouse(hand, index, value, numberOfOccurences) {
     let x;
@@ -161,6 +176,7 @@ function fullHouse(hand, index, value, numberOfOccurences) {
         return true;
     } else return false;
 }
+
 //Check if we have a flush
 function flush(hand, index, value) {
     const a = oneColor(hand);
@@ -244,11 +260,13 @@ function pair (hand, index, value, numberOfOccurences) {
         return true;
     } else return false;
 }
+
 //Check for the highest card
 function highCard (hand, index) {
     const b = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
     return Math.max(...b);
 } 
+
 //Displays in text the highest card
 function highCardText (hand,index) {
    
@@ -278,6 +296,7 @@ function highCardText (hand,index) {
 //Determines the player's current hand
 function handCheck (hand) {
 
+    // This is amazing, I never thought of something like that..
     const x = true;
     switch(x) {
         case (royalFlush (hand, 0, 0)):
@@ -333,6 +352,8 @@ function handCheck (hand) {
     }
 
 }
+
+// #region Remove code comments
 //Console for testing
 //console.log("ROYAL FLUSH");
 //console.log(royalFlush(myHand1, 0, 0));
@@ -358,7 +379,14 @@ function handCheck (hand) {
 // console.log("------------------------------------------------------");
 // console.log(handCheck(myHand1, 0, 0, 0));
 // console.log("------------------------------------------------------");
+// #endregion Remove code comments
 
 module.exports = {
   handCheck,
 };
+
+/* Notes 
+ * Variable names should be distinct instead of x and y.
+ * Replace function fnName() with const fnName = () => { ... } (we will explain why and the differences).
+ * Try refreshing the usage of map, filter, reduce functions and apply them instead of four statement (if it's possible)
+*/
