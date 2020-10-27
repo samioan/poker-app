@@ -91,6 +91,13 @@ function pairCheckFive (hand, index, value) {
         return true;
     } else return false;
 } 
+//Check for an ace related unique pair
+function pairCheckFiveAce (hand, index) {
+    const b = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
+    if (b.includes(14) && b.includes(2) && b.includes(3) && b.includes(4) && b.includes(5)) {
+        return true;
+    } else return false;
+} 
 //Check if a hand has cards of the same number
 function cardSame (hand, index, value, numberOfOccurences) {
     const array = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
@@ -114,7 +121,7 @@ function straightFlush (hand, index, value) {
     const a = oneColor(hand);
     let x;
     for (x = 9; x > 1; x--) {
-        if ((pairCheckFive(hand, index, value+x) === true) && (a === true)) {
+        if (((pairCheckFive(hand, index, value+x) === true) || (pairCheckFiveAce(hand, index) === true)) && (a === true)) {
             return true;
         } else return false;
     }
@@ -242,7 +249,6 @@ function highCard (hand, index) {
     const b = [(cardStrength(hand, index)), (cardStrength(hand, index+1)), (cardStrength(hand, index+2)), (cardStrength(hand, index+3)), (cardStrength(hand, index+4))]
     return Math.max(...b);
 } 
-
 //Displays in text the highest card
 function highCardText (hand,index) {
    
@@ -270,59 +276,59 @@ function highCardText (hand,index) {
     )
 }
 //Determines the player's current hand
-function handCheck (hand, index, value, numberOfOccurences) {
+function handCheck (hand) {
 
     const x = true;
     switch(x) {
-        case (royalFlush (hand, index, value)):
+        case (royalFlush (hand, 0, 0)):
             return {
-                strength: "Royal Flush",
-                highestCard: highCardText (hand,index)
+                strength: 10,
+                highestCard: highCard (hand,0)
             };
-        case (straightFlush (hand, index, value)):
+        case (straightFlush (hand, 0, 0)):
             return {
-                strength: "Straight Flush",
-                highestCard: highCardText (hand,index)
+                strength: 9,
+                highestCard: highCard (hand,0)
             }
-        case (fourOfAKind(hand, index, value, numberOfOccurences)):
+        case (fourOfAKind(hand, 0, 0, 0)):
             return {
-                strength: "Four of a kind",
-                highestCard: highCardText (hand,index)
+                strength: 8,
+                highestCard: highCard (hand,0)
             }
-        case (fullHouse(hand, index, value, numberOfOccurences)):
+        case (fullHouse(hand, 0, 0, 0)):
             return {
-                strength: "Full House",
-                highestCard: highCardText (hand,index)
+                strength: 7,
+                highestCard: highCard (hand,0)
             }
-        case (flush(hand, index, value)):
+        case (flush(hand, 0, 0)):
             return {
-                strength: "Flush",
-                highestCard: highCardText (hand,index)
+                strength: 6,
+                highestCard: highCard (hand,0)
             }
-        case (straight(hand, index, value)):
+        case (straight(hand, 0, 0)):
             return {
-                strength: "Straight",
-                highestCard: highCardText (hand,index)
+                strength: 5,
+                highestCard: highCard (hand,0)
             }
-        case (threeOfAKind (hand, index, value, numberOfOccurences)):
+        case (threeOfAKind (hand, 0, 0, 0)):
             return {
-                strength: "Three of a kind",
-                highestCard: highCardText (hand,index)
+                strength: 4,
+                highestCard: highCard (hand,0)
             }
-        case (twoPair (hand, index, value, numberOfOccurences)):
+        case (twoPair (hand, 0, 0, 0)):
             return {
-                strength: "Two Pairs",
-                highestCard: highCardText (hand,index)
+                strength: 3,
+                highestCard: highCard (hand,0)
             }
-        case (pair (hand, index, value, numberOfOccurences)):
+        case (pair (hand, 0, 0, 0)):
             return {
-                strength: "One Pair",
-                highestCard: highCardText (hand,index)
+                strength: 2,
+                highestCard: highCard (hand,0)
             }
         default: 
             return {
-                strength: "High Card",
-                highestCard: highCardText (hand,index)
+                strength: 1,
+                highestCard: highCard (hand,0)
             }
     }
 
