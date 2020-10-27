@@ -66,7 +66,7 @@ describe("handCheck", () => {
     // THEN
     expect(result).toEqual({
       strength: HAND_TYPE.FULL_HOUSE,
-      highestCard: "14",
+      highestCard: 14,
     });
   });
 });
