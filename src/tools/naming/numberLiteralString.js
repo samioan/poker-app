@@ -10,11 +10,11 @@ const numberLiteralString = (card) => {
     "07": "Seven",
     "08": "Eight",
     "09": "Nine",
-    10: "Ten",
-    11: "Jack",
-    12: "Queen",
-    13: "King",
-    14: "Ace",
+    "10": "Ten",
+    "11": "Jack",
+    "12": "Queen",
+    "13": "King",
+    "14": "Ace",
   };
 
   return numbers[cardNumber];
