@@ -53,7 +53,7 @@ const cardsDuplicates = (hand) => {
   return counts;
 }
 
-//Check if we have a royal flush
+//Check if we have a Royal Flush
 const isRoyalFlush = (hand) => sameColor(hand) && pairCheckFiveAceHigh(hand);
 
 //Check if we have a straight flush
