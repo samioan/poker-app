@@ -4,7 +4,7 @@ const { suitLiteralString } = require("./tools/naming/suitLiteralString");
 //Poker Game
 
 const cardNumber = (card) => card.slice(1, 3);
-const cardSuitChar = (card) => card.charAt[0];
+const cardSuitChar = (card) => card.charAt(0);
 const cardStrength = (card) => parseInt(cardNumber(card), 10);
 
 //Turns all cards into numbers
@@ -67,9 +67,11 @@ const isFullHouse = (hand) => Object.values(cardsDuplicates(hand)).includes(3) &
 
 //Check if we have a Flush
 const isFlush = (hand) => sameColor(hand) && (!pairCheckFive(hand) && !pairCheckFiveAceLow(hand) && !pairCheckFiveAceHigh(hand))
+// TODO: is Flush actually means that cards are the same color
 
 //Check if we have a straight
 const isStraight = (hand) => !sameColor(hand) && (pairCheckFive(hand) || pairCheckFiveAceLow(hand) || pairCheckFiveAceHigh(hand));
+// TODO: Do we actually care that it's not flush now that we fixed the bug?
 
 //Check if we have three of a kind
 const isThreeOfAKind = (hand) => Object.values(cardsDuplicates(hand)).includes(3) && Object.values(cardsDuplicates(hand)).includes(1)
