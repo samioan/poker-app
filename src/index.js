@@ -1,15 +1,11 @@
-const { numberLiteralString } = require("./tools/naming/numberLiteralString");
-const { suitLiteralString } = require("./tools/naming/suitLiteralString");
-
 //Poker Game
-
 const cardNumber = (card) => card.slice(1, 3);
 const cardSuitChar = (card) => card.charAt(0);
 const cardStrength = (card) => parseInt(cardNumber(card), 10);
 
 //Turns all cards into numbers
 const cardsToNumbers = (hand) => {
-  const handNumbersOnly = hand.map(element => element.slice(1, 3));
+  const handNumbersOnly = hand.map(element => element.slice(1, 3)); // TODO: You have an existing function doind this work. Use the function instead
   return handNumbersOnly.map(Number);
 }
 //Check if all cards have the same color
@@ -106,10 +102,3 @@ const handCheck = (hand) => {
 module.exports = {
   handCheck,
 };
-
-// 1. no more x y z variables, they should make some literal sense
-// 2. replace for loops with map filter reduce ---- find, every, some
-// 3. remove else return and just return
-// 4. make a function that returns if a hand is straight
-// 5. function that give names eg. tools/numberLiteralString.js ...
-// 6. Minimize the parameters needed to evaluate
