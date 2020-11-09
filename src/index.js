@@ -3,23 +3,45 @@ const cardNumber = (card) => card.slice(1, 3);
 const cardSuitChar = (card) => card.charAt(0);
 const cardStrength = (card) => parseInt(cardNumber(card), 10);
 
-//Check for 5 cards in order including ace
+//Turns all cards into numbers
+const cardsToNumbers = (hand) => {
+  const handNumbersOnly = hand.map(element => element.slice(1, 3)); // TODO: You have an existing function doind this work. Use the function instead
+  return handNumbersOnly.map(Number);
+}
+//Check if all cards have the same color
+const isFlush = (hand) => {
+  const firstCardSuit = cardSuitChar(hand[0]);
+  return hand.every((card) => cardSuitChar(card) === firstCardSuit);
+};
+
+//Check if we have five cards in sequential order
+const isStraight = (hand) => {
+  const lowestCard = Math.min(...hand.map((card) => cardStrength(card)));
+  return (
+    cardsToNumbers(hand).includes(lowestCard) &&
+    cardsToNumbers(hand).includes(lowestCard+1) &&
+    cardsToNumbers(hand).includes(lowestCard+2) &&
+    cardsToNumbers(hand).includes(lowestCard+3) &&
+    cardsToNumbers(hand).includes(lowestCard+4)
+  ) 
+};
+//Check for the lowest Ace high hand
 const pairCheckFiveAce = (hand) => (
-  hand.map(card => cardStrength(card)).includes(14) &&
-  hand.map(card => cardStrength(card)).includes(2) &&
-  hand.map(card => cardStrength(card)).includes(3) &&
-  hand.map(card => cardStrength(card)).includes(4) &&
-  hand.map(card => cardStrength(card)).includes(5)
+    cardsToNumbers(hand).includes(14) &&
+    cardsToNumbers(hand).includes(2) &&
+    cardsToNumbers(hand).includes(3) &&
+    cardsToNumbers(hand).includes(4) &&
+    cardsToNumbers(hand).includes(5)
 ) 
 
 //Check if a hand has cards of the same number
 const cardsDuplicates = (hand) => {
   let counts = {};
-  hand.map(card => cardStrength(card)).forEach((x) => { counts[x] = (counts[x] || 0)+1; });
+  cardsToNumbers(hand).forEach((x) => { counts[x] = (counts[x] || 0)+1; });
   return Object.values(counts);
 }
 
-//Check if we have a royal flush
+//Check if we have a Royal Flush
 const isRoyalFlush = (hand) => isFlush(hand) && isStraight(hand) && highCard(hand) === 14;
 
 //Check if we have a straight flush
@@ -30,24 +52,6 @@ const isFourOfAKind = (hand) => cardsDuplicates(hand).includes(4)
 
 //Check if we have a full house
 const isFullHouse = (hand) => cardsDuplicates(hand).includes(3) && cardsDuplicates(hand).includes(2)
-
-//Check if we have a flush
-const isFlush = (hand) => {
-  const firstCardSuit = cardSuitChar(hand[0]);
-  return hand.every((card) => cardSuitChar(card) === firstCardSuit);
-};
-
-//Check if we have a straight
-const isStraight = (hand) => {
-  const lowestCard = Math.min(...hand.map((card) => cardStrength(card)));
-  return (
-    hand.map(card => cardStrength(card)).includes(lowestCard) &&
-    hand.map(card => cardStrength(card)).includes(lowestCard+1) &&
-    hand.map(card => cardStrength(card)).includes(lowestCard+2) &&
-    hand.map(card => cardStrength(card)).includes(lowestCard+3) &&
-    hand.map(card => cardStrength(card)).includes(lowestCard+4)
-  ) 
-};
 
 //Check if we have three of a kind
 const isThreeOfAKind = (hand) => cardsDuplicates(hand).includes(3) 
