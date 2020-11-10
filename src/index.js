@@ -1,38 +1,16 @@
 //Poker Game
+
+//Detects a card's number
 const cardNumber = (card) => card.slice(1, 3);
+
+//Detects a card's suite
 const cardSuitChar = (card) => card.charAt(0);
+
+//Detects a card's strength
 const cardStrength = (card) => parseInt(cardNumber(card), 10);
 
 //Turns all cards into numbers
-const cardsToNumbers = (hand) => {
-  const handNumbersOnly = hand.map(element => element.slice(1, 3)); // TODO: You have an existing function doind this work. Use the function instead
-  return handNumbersOnly.map(Number);
-}
-//Check if all cards have the same color
-const isFlush = (hand) => {
-  const firstCardSuit = cardSuitChar(hand[0]);
-  return hand.every((card) => cardSuitChar(card) === firstCardSuit);
-};
-
-//Check if we have five cards in sequential order
-const isStraight = (hand) => {
-  const lowestCard = Math.min(...hand.map((card) => cardStrength(card)));
-  return (
-    cardsToNumbers(hand).includes(lowestCard) &&
-    cardsToNumbers(hand).includes(lowestCard+1) &&
-    cardsToNumbers(hand).includes(lowestCard+2) &&
-    cardsToNumbers(hand).includes(lowestCard+3) &&
-    cardsToNumbers(hand).includes(lowestCard+4)
-  ) 
-};
-//Check for the lowest Ace high hand
-const pairCheckFiveAce = (hand) => (
-    cardsToNumbers(hand).includes(14) &&
-    cardsToNumbers(hand).includes(2) &&
-    cardsToNumbers(hand).includes(3) &&
-    cardsToNumbers(hand).includes(4) &&
-    cardsToNumbers(hand).includes(5)
-) 
+const cardsToNumbers = (hand) => hand.map(card => cardStrength(card));
 
 //Check if a hand has cards of the same number
 const cardsDuplicates = (hand) => {
@@ -41,7 +19,7 @@ const cardsDuplicates = (hand) => {
   return Object.values(counts);
 }
 
-//Check if we have a Royal Flush
+//Check if we have a royal flush
 const isRoyalFlush = (hand) => isFlush(hand) && isStraight(hand) && highCard(hand) === 14;
 
 //Check if we have a straight flush
@@ -53,6 +31,33 @@ const isFourOfAKind = (hand) => cardsDuplicates(hand).includes(4)
 //Check if we have a full house
 const isFullHouse = (hand) => cardsDuplicates(hand).includes(3) && cardsDuplicates(hand).includes(2)
 
+//Check if we have a flush
+const isFlush = (hand) => {
+  const firstCardSuit = cardSuitChar(hand[0]);
+  return hand.every((card) => cardSuitChar(card) === firstCardSuit);
+};
+
+//Check if we have a straight
+const isStraight = (hand) => {
+  const lowestCard = Math.min(...hand.map((card) => cardStrength(card)));
+  return (
+    cardsToNumbers(hand).includes(lowestCard) &&
+    cardsToNumbers(hand).includes(lowestCard+1) &&
+    cardsToNumbers(hand).includes(lowestCard+2) &&
+    cardsToNumbers(hand).includes(lowestCard+3) &&
+    cardsToNumbers(hand).includes(lowestCard+4)
+  ) 
+};
+
+//Check if we have a straight including an ace
+const pairCheckFiveAce = (hand) => (
+    cardsToNumbers(hand).includes(14) &&
+    cardsToNumbers(hand).includes(2) &&
+    cardsToNumbers(hand).includes(3) &&
+    cardsToNumbers(hand).includes(4) &&
+    cardsToNumbers(hand).includes(5)
+) 
+
 //Check if we have three of a kind
 const isThreeOfAKind = (hand) => cardsDuplicates(hand).includes(3) 
 
@@ -63,8 +68,7 @@ const isTwoPair = (hand) =>  cardsDuplicates(hand)[2] === 2
 const isPair = (hand) => cardsDuplicates(hand).includes(2)
 
 //Check for the highest card
-const highCard = (hand) =>
-  Math.max(...hand.map((card) => cardStrength(card)));
+const highCard = (hand) => Math.max(...cardsToNumbers(hand));
 
 //Determines the player's current hand
 const handCheck = (hand) => {
