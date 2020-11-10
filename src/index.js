@@ -39,7 +39,7 @@ const isFlush = (hand) => {
 
 //Check if we have a straight
 const isStraight = (hand) => {
-  const lowestCard = Math.min(...hand.map((card) => cardStrength(card)));
+  const lowestCard = Math.min(...cardsToNumbers(hand));
   return (
     cardsToNumbers(hand).includes(lowestCard) &&
     cardsToNumbers(hand).includes(lowestCard+1) &&
