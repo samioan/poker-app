@@ -20,10 +20,10 @@ const cardsDuplicates = (hand) => {
 }
 
 //Check if we have a royal flush
-const isRoyalFlush = (hand) => isFlush(hand) && isStraight(hand) && highCard(hand) === 14;
+const isRoyalFlush = (hand) => isFlush(hand) && isStraight(hand) && lowCard(hand) === 10;
 
 //Check if we have a straight flush
-const isStraightFlush = (hand) => isFlush(hand) && (isStraight(hand) || pairCheckFiveAce(hand));
+const isStraightFlush = (hand) => isFlush(hand) && isStraight(hand);
 
 //Check if we have four of a kind
 const isFourOfAKind = (hand) => cardsDuplicates(hand).includes(4)
@@ -46,17 +46,14 @@ const isStraight = (hand) => {
     cardsToNumbers(hand).includes(lowestCard+2) &&
     cardsToNumbers(hand).includes(lowestCard+3) &&
     cardsToNumbers(hand).includes(lowestCard+4)
-  ) 
-};
-
-//Check if we have a straight including an ace
-const pairCheckFiveAce = (hand) => (
+  ) || (
     cardsToNumbers(hand).includes(14) &&
     cardsToNumbers(hand).includes(2) &&
     cardsToNumbers(hand).includes(3) &&
     cardsToNumbers(hand).includes(4) &&
     cardsToNumbers(hand).includes(5)
 ) 
+};
 
 //Check if we have three of a kind
 const isThreeOfAKind = (hand) => cardsDuplicates(hand).includes(3) 
@@ -69,6 +66,9 @@ const isPair = (hand) => cardsDuplicates(hand).includes(2)
 
 //Check for the highest card
 const highCard = (hand) => Math.max(...cardsToNumbers(hand));
+
+//Check for the lowest card
+const lowCard = (hand) => Math.min(...cardsToNumbers(hand));
 
 //Determines the player's current hand
 const handCheck = (hand) => {
