@@ -1,2 +1,3 @@
-# Poker Game
-Poker game created with JavaScript.
+# Poker Hand Evaluator
+Provides hand evaluation for a poker game.
+Made with JavaScript.
